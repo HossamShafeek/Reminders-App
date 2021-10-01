@@ -15,7 +15,6 @@ class AddTasksScreen extends StatefulWidget {
 class _AddTasksScreenState extends State<AddTasksScreen> {
 
 
-  int colorNumber=0;
   var formKey = GlobalKey<FormState>();
   TextEditingController titleController = TextEditingController();
   TextEditingController taskController = TextEditingController();
@@ -287,8 +286,10 @@ class _AddTasksScreenState extends State<AddTasksScreen> {
                       task: taskController.text,
                       date: dateController.text,
                       time: timeController.text,
-                      colorNumber: colorNumber,
-                  );
+                      colorNumber: cubit.colorNumber,
+                  ).then((value) {
+                    cubit.colorNumber=0;
+                  });
                 }
               },
             ),
@@ -312,9 +313,7 @@ class _AddTasksScreenState extends State<AddTasksScreen> {
                         left: 11, right: 11, top: 50, bottom: 15),
                     child: InkWell(
                       onTap: (){
-                        setState(() {
-                          colorNumber = index;
-                        });
+                        cubit.changeColorIndex(index);
                       },
                       child: Container(
                         width: MediaQuery
@@ -322,7 +321,7 @@ class _AddTasksScreenState extends State<AddTasksScreen> {
                             .size
                             .width * 0.12,
                         color: cubit.colors[index],
-                        child: colorNumber==index?Icon(Icons.done):null,
+                        child: cubit.colorNumber==index?Icon(Icons.done):null,
                       ),
                     ),
                   );

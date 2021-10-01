@@ -11,6 +11,8 @@ class AppCubit extends Cubit<AppStates> {
   static AppCubit get(context) => BlocProvider.of(context);
 
   int currentIndex = 0;
+  int colorNumber=0;
+
 
   List<Widget> bodyScreen = [
     NewTasksScreen(),
@@ -32,6 +34,11 @@ class AppCubit extends Cubit<AppStates> {
     Icons.menu,
     Icons.done_all,
   ];
+
+  void changeColorIndex(index){
+    colorNumber = index;
+    emit(AppChangeColorIndexState());
+  }
 
   void changeIndex(index) {
     currentIndex = index;
